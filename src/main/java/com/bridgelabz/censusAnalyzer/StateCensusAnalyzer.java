@@ -5,9 +5,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
-
 import com.bridgelabz.censusAnalyzer.model.CSVStateCensus;
-import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -15,7 +13,8 @@ public class StateCensusAnalyzer {
 	
 	private final String CENSUS_CSV_PATH="./src/Resources/IndiaStateCensusData.csv";
 
-	public void readCSVData() throws IOException {
+	public int readCSVData() throws IOException {
+		int count=0;
 		try {
 			Reader reader=Files.newBufferedReader(Paths.get(CENSUS_CSV_PATH));
 			CsvToBean<CSVStateCensus> csvToBean =
@@ -27,12 +26,15 @@ public class StateCensusAnalyzer {
 			Iterator<CSVStateCensus> csvIterator = csvToBean.iterator();
 
             while (csvIterator.hasNext()) {
+            	count++;
             	CSVStateCensus csvData=csvIterator.next();
             	System.out.println(csvData);
             }
+            return count;
 			
 		}catch(IOException exception){
 			exception.printStackTrace();
 		}
+		return 0;
 	}
 }
