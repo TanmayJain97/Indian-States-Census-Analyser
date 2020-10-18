@@ -16,6 +16,7 @@ public class StateCensusAnalyzerTest {
 	
 	//Paths for State Code Files
 	private final String STATECODE_CSV_PATH="./src/Resources/IndiaStateCode.csv";
+	private final String INVALID_STATECODE_CSV_PATH="IndiaStateCode.csv";
 	
 	private StateCensusAnalyzer analyser;
 	
@@ -65,8 +66,18 @@ public class StateCensusAnalyzerTest {
 	//Test Cases For State Code
 	
 	@Test
-	public void givenCodeCSVFileReturnsCorrectNoOfEntries(){
+	public void givenCodeCSVFileReturnsCorrectNoOfEntries() throws StateAnalyzerException{
 		int stateCount = analyser.readStateCodeCSVData(STATECODE_CSV_PATH);
 		assertEquals(36, stateCount);
+	}
+	
+	@Test
+	public void givenIncorrectCSVFilePath_ThrowsCustomExceptionInvalidFilePath2(){
+		try {
+			analyser.readStateCodeCSVData(INVALID_STATECODE_CSV_PATH);
+		} catch (StateAnalyzerException e) {
+			e.printStackTrace();
+			assertEquals(StateAnalyzerException.ExceptionType.INVALID_FILE_PATH, e.type);
+		}
 	}
 }
