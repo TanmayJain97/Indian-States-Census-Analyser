@@ -73,7 +73,7 @@ public class StateCensusAnalyzer {
 		}
 	}
 	
-	public int readStateCodeCSVData(String FilePath) {
+	public int readStateCodeCSVData(String FilePath) throws StateAnalyzerException {
 		
 		try {
 			Files.newBufferedReader(Paths.get(FilePath));
@@ -90,9 +90,9 @@ public class StateCensusAnalyzer {
 			int count=(int) StreamSupport.stream(csvItrable.spliterator(),false)
 					.count();
 			return count;
-		}catch(Exception exception) {
-			exception.printStackTrace();
+		}catch(IOException exception) {
+			throw new StateAnalyzerException("Invalid Path Name",
+					ExceptionType.INVALID_FILE_PATH);
 		}
-		return 0;
 	}
 }
