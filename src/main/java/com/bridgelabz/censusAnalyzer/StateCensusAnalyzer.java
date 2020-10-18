@@ -5,18 +5,25 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
+
+import com.bridgelabz.censusAnalyzer.exception.StateAnalyzerException;
+import com.bridgelabz.censusAnalyzer.exception.StateAnalyzerException.ExceptionType;
 import com.bridgelabz.censusAnalyzer.model.CSVStateCensus;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 public class StateCensusAnalyzer {
-	
-	private final String CENSUS_CSV_PATH="./src/Resources/IndiaStateCensusData.csv";
 
-	public int readCSVData() throws IOException {
+	public int readCSVData(String FilePath) throws StateAnalyzerException {
 		int count=0;
 		try {
-			Reader reader=Files.newBufferedReader(Paths.get(CENSUS_CSV_PATH));
+			try {
+				Files.newBufferedReader(Paths.get(FilePath));
+			}catch(IOException exception) {
+				throw new StateAnalyzerException("Inavlid Path Name",
+						ExceptionType.INVALID_FILE_PATH);
+			}
+			Reader reader=Files.newBufferedReader(Paths.get(FilePath));
 			CsvToBean<CSVStateCensus> csvToBean =
 					new CsvToBeanBuilder<CSVStateCensus>(reader)
 					.withIgnoreLeadingWhiteSpace(true)
