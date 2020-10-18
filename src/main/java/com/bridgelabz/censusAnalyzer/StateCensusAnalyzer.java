@@ -90,8 +90,24 @@ public class StateCensusAnalyzer {
 			int count=(int) StreamSupport.stream(csvItrable.spliterator(),false)
 					.count();
 			
-			//Check delimitor
 			BufferedReader br = new BufferedReader(reader);
+			
+			//Check Header
+			while (br.readLine()!=null) {
+				String[] head=br.readLine().split(",");
+				boolean flagCorrectHead=
+						head[0]=="SrNo" &&
+						head[1]=="State Name" &&
+						head[2]=="TIN" &&
+						head[3]=="StateCode";
+				if (!flagCorrectHead) {
+					throw new StateAnalyzerException("Invalid Headers",
+							ExceptionType.INVALID_HEAD);
+				}
+				break;
+			}
+			
+			//Check delimitor
 			boolean flagCorrectDelim=true;
 			while (br.readLine()!=null) {
 				if (!br.readLine().contains(",")) {
