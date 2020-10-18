@@ -18,6 +18,7 @@ public class StateCensusAnalyzerTest {
 	private final String STATECODE_CSV_PATH="./src/Resources/IndiaStateCode.csv";
 	private final String INVALID_STATECODE_CSV_PATH="IndiaStateCode.csv";
 	private final String INVALID_STATECODE_CSV_DELIM="./src/Resources/IndiaStateCodeInvalidDelim.csv";
+	private final String INVALID_STATECODE_CSV_HEAD="./src/Resources/IndiaStateCodeInvalidHead.csv";
 	
 	private StateCensusAnalyzer analyser;
 	
@@ -89,6 +90,16 @@ public class StateCensusAnalyzerTest {
 		} catch (StateAnalyzerException e) {
 			e.printStackTrace();
 			assertEquals(StateAnalyzerException.ExceptionType.INVALID_DELIM, e.type);
+		}
+	}
+	
+	@Test
+	public void givenIncorrectHeader_ThrowsCustomExceptionInvalidHeader2(){
+		try {
+			analyser.readStateCodeCSVData(INVALID_STATECODE_CSV_HEAD);
+		} catch (StateAnalyzerException e) {
+			e.printStackTrace();
+			assertEquals(StateAnalyzerException.ExceptionType.INVALID_HEAD, e.type);
 		}
 	}
 }
