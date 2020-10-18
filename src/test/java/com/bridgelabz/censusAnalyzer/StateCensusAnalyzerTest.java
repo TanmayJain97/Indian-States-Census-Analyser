@@ -11,6 +11,7 @@ public class StateCensusAnalyzerTest {
 	private final String CENSUS_CSV_PATH="./src/Resources/IndiaStateCensusData.csv";
 	private final String INVALID_CENSUS_CSV_PATH="IndiaStateCensusData.csv";
 	private final String INVALID_CENSUS_CSV_DELIM="./src/Resources/IndiaStateCensusDataInvalidDelim.csv";
+	private final String INVALID_CENSUS_CSV_HEAD="./src/Resources/IndiaStateCensusDataInvalidHead.csv";
 	private StateCensusAnalyzer analyser;
 	
 	@Before
@@ -41,6 +42,16 @@ public class StateCensusAnalyzerTest {
 		} catch (StateAnalyzerException e) {
 			e.printStackTrace();
 			assertEquals(StateAnalyzerException.ExceptionType.INVALID_DELIM, e.type);
+		}
+	}
+	
+	@Test
+	public void givenIncorrectHeader_ThrowsCustomExceptionInvalidHeader(){
+		try {
+			analyser.readCSVData(INVALID_CENSUS_CSV_HEAD);
+		} catch (StateAnalyzerException e) {
+			e.printStackTrace();
+			assertEquals(StateAnalyzerException.ExceptionType.INVALID_HEAD, e.type);
 		}
 	}
 }
