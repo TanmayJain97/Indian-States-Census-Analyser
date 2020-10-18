@@ -93,6 +93,9 @@ public class StateCensusAnalyzer {
 		}catch(IOException exception) {
 			throw new StateAnalyzerException("Invalid Path Name",
 					ExceptionType.INVALID_FILE_PATH);
+		}catch(IllegalStateException exception){
+			throw new StateAnalyzerException("Invalid Class Type.",
+					ExceptionType.INVALID_CLASS_TYPE);
 		}
 	}
 }
