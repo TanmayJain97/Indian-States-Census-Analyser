@@ -17,6 +17,7 @@ public class StateCensusAnalyzerTest {
 	//Paths for State Code Files
 	private final String STATECODE_CSV_PATH="./src/Resources/IndiaStateCode.csv";
 	private final String INVALID_STATECODE_CSV_PATH="IndiaStateCode.csv";
+	private final String INVALID_STATECODE_CSV_DELIM="./src/Resources/IndiaStateCodeInvalidDelim.csv";
 	
 	private StateCensusAnalyzer analyser;
 	
@@ -78,6 +79,16 @@ public class StateCensusAnalyzerTest {
 		} catch (StateAnalyzerException e) {
 			e.printStackTrace();
 			assertEquals(StateAnalyzerException.ExceptionType.INVALID_FILE_PATH, e.type);
+		}
+	}
+	
+	@Test
+	public void givenIncorrectDelimiter_ThrowsCustomExceptionInvalidDelimiter2(){
+		try {
+			analyser.readStateCodeCSVData(INVALID_STATECODE_CSV_DELIM);
+		} catch (StateAnalyzerException e) {
+			e.printStackTrace();
+			assertEquals(StateAnalyzerException.ExceptionType.INVALID_DELIM, e.type);
 		}
 	}
 }
