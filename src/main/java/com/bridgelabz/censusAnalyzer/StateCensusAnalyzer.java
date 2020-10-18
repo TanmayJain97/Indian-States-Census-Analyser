@@ -89,6 +89,20 @@ public class StateCensusAnalyzer {
 			Iterable<CSVStates> csvItrable= () -> csvIterator;
 			int count=(int) StreamSupport.stream(csvItrable.spliterator(),false)
 					.count();
+			
+			//Check delimitor
+			BufferedReader br = new BufferedReader(reader);
+			boolean flagCorrectDelim=true;
+			while (br.readLine()!=null) {
+				if (!br.readLine().contains(",")) {
+					flagCorrectDelim=false;
+				}
+			}
+			if (!flagCorrectDelim) {
+				throw new StateAnalyzerException("Invalid Delimitor",
+						ExceptionType.INVALID_DELIM);
+			}
+			
 			return count;
 		}catch(IOException exception) {
 			throw new StateAnalyzerException("Invalid Path Name",
