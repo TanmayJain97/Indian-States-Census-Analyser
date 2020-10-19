@@ -6,7 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import com.bridgelabz.censusAnalyzer.exception.StateAnalyzerException;
 import com.bridgelabz.censusAnalyzer.exception.StateAnalyzerException.ExceptionType;
-import com.bridgelabz.censusAnalyzer.utility.CSVBuilder;
+import com.bridgelabz.censusAnalyzer.utility.CSVBuilderFactory;
+import com.bridgelabz.censusAnalyzer.utility.ICSVBuilder;
 
 public class StateCensusAnalyzer {
 
@@ -15,7 +16,8 @@ public class StateCensusAnalyzer {
 			Files.newBufferedReader(Paths.get(FilePath));
 			Reader reader=Files.newBufferedReader(Paths.get(FilePath));
 			
-			return new CSVBuilder().getCount(reader, className);
+			ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+			return csvBuilder.getCount(reader, className);
 
 		}catch(IOException exception) {
 			throw new StateAnalyzerException("Invalid Path Name",
