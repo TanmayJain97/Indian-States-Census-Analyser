@@ -7,6 +7,7 @@ import org.junit.Test;
 import com.bridgelabz.censusAnalyzer.exception.StateAnalyzerException;
 import com.bridgelabz.censusAnalyzer.model.CSVStateCensus;
 import com.bridgelabz.censusAnalyzer.model.CSVStates;
+import com.bridgelabz.censusAnalyzer.model.Invalid;
 
 public class StateCensusAnalyzerTest {
 	
@@ -48,6 +49,16 @@ public class StateCensusAnalyzerTest {
 	}
 	
 	@Test
+	public void givenIncorrectClass_ThrowsCustomExceptionInvalidClassType(){
+		try {
+			analyser.readCSVData(CENSUS_CSV_PATH,Invalid.class);
+		} catch (StateAnalyzerException e) {
+			e.printStackTrace();
+			assertEquals(StateAnalyzerException.ExceptionType.INVALID_CLASS_TYPE, e.type);
+		}
+	}
+	
+	@Test
 	public void givenIncorrectDelimiter_ThrowsCustomExceptionInvalidDelimiter(){
 		try {
 			analyser.readCSVData(INVALID_CENSUS_CSV_DELIM,CSVStateCensus.class);
@@ -73,6 +84,16 @@ public class StateCensusAnalyzerTest {
 	public void givenCodeCSVFileReturnsCorrectNoOfEntries() throws StateAnalyzerException{
 		int stateCount = analyser.readCSVData(STATECODE_CSV_PATH,CSVStates.class);
 		assertEquals(36, stateCount);
+	}
+	
+	@Test
+	public void givenIncorrectClass_ThrowsCustomExceptionInvalidClassType2(){
+		try {
+			analyser.readCSVData(STATECODE_CSV_PATH,Invalid.class);
+		} catch (StateAnalyzerException e) {
+			e.printStackTrace();
+			assertEquals(StateAnalyzerException.ExceptionType.INVALID_CLASS_TYPE, e.type);
+		}
 	}
 	
 	@Test

@@ -4,12 +4,9 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Iterator;
-import java.util.stream.StreamSupport;
 import com.bridgelabz.censusAnalyzer.exception.StateAnalyzerException;
 import com.bridgelabz.censusAnalyzer.exception.StateAnalyzerException.ExceptionType;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
+import com.bridgelabz.censusAnalyzer.utility.CSVBuilder;
 
 public class StateCensusAnalyzer {
 
@@ -17,25 +14,12 @@ public class StateCensusAnalyzer {
 		try {
 			Files.newBufferedReader(Paths.get(FilePath));
 			Reader reader=Files.newBufferedReader(Paths.get(FilePath));
-			CsvToBean<T> csvToBean =
-					new CsvToBeanBuilder<T>(reader)
-					.withIgnoreLeadingWhiteSpace(true)
-					.withType(className).build();
 			
-			Iterator<T> csvIterator = csvToBean.iterator();
-
-			Iterable<T> csvItrable= () -> csvIterator;
-			int count=(int) StreamSupport.stream(csvItrable.spliterator(),false)
-					.count();
-			
-			return count;
+			return new CSVBuilder().getCount(reader, className);
 
 		}catch(IOException exception) {
 			throw new StateAnalyzerException("Invalid Path Name",
 					ExceptionType.INVALID_FILE_PATH);
-		}catch(IllegalStateException exception){
-			throw new StateAnalyzerException("Invalid Class Type.",
-					ExceptionType.INVALID_CLASS_TYPE);
 		}catch(RuntimeException exception){
 			throw new StateAnalyzerException("Invalid Delimitor/Head Name",
 					ExceptionType.INVALID_DELIM_OR_HEAD);
