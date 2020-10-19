@@ -9,9 +9,9 @@ import com.bridgelabz.censusAnalyzer.exception.StateAnalyzerException.ExceptionT
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
-public class CSVBuilder {
+public class CSVBuilder<T> implements ICSVBuilder<T> {
 	
-	public <T> int getCount(Reader reader,Class<T> className) throws StateAnalyzerException {
+	public int getCount(Reader reader,Class className) throws StateAnalyzerException {
 		Iterator<T> csvIterator=this.getCSVIterator(reader, className);
 		Iterable<T> csvItrable= () -> csvIterator;
 		int count=(int) StreamSupport.stream(csvItrable.spliterator(),false)
@@ -19,7 +19,7 @@ public class CSVBuilder {
 		return count;
 	}
 	
-	private <T> Iterator<T> getCSVIterator(Reader reader,Class<T> className) throws StateAnalyzerException {
+	private Iterator<T> getCSVIterator(Reader reader,Class<T> className) throws StateAnalyzerException {
 		try {
 			CsvToBean<T> csvToBean =
 					new CsvToBeanBuilder<T>(reader)
