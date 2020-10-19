@@ -1,3 +1,3 @@
 # Indian-States-Census-Analyser
 
-Modified to RF1 - Enforce DRY and create a Generic Function to read data files
+Modified to RF1 - Refactored Code to ensure Single Responsibility Principle (SRV) for Analyser and use Delegation Principle to handle CSV Files.
