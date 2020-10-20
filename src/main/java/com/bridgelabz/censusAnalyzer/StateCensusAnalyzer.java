@@ -17,7 +17,6 @@ import com.bridgelabz.censusAnalyzer.csvbuilder.exception.CSVBuilderException.Ex
 import com.bridgelabz.censusAnalyzer.model.CSVStateCensus;
 import com.bridgelabz.censusAnalyzer.model.CSVStates;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 
 public class StateCensusAnalyzer {
 	
@@ -58,7 +57,7 @@ public class StateCensusAnalyzer {
 	public String makeCensusDataSorted() throws CSVBuilderException {
 		if(censusList==null||censusList.size()==0)
 			throw new CSVBuilderException("No Census Data", ExceptionType.NO_DATA);
-		String sortedCensusDataJson = new Gson().toJson(sortByPop());
+		String sortedCensusDataJson = new Gson().toJson(sortByDensity());
 		return sortedCensusDataJson;
 	}
 	
@@ -71,6 +70,12 @@ public class StateCensusAnalyzer {
 	private List<CSVStateCensus> sortByPop() {
 		return censusList.stream()
 		.sorted(Comparator.comparingLong(CSVStateCensus::getPop).reversed())
+		.collect(Collectors.toList());
+	}
+	
+	private List<CSVStateCensus> sortByDensity() {
+		return censusList.stream()
+		.sorted(Comparator.comparingLong(CSVStateCensus::getDensity).reversed())
 		.collect(Collectors.toList());
 	}
 

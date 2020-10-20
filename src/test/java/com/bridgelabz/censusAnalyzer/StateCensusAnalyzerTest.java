@@ -179,4 +179,21 @@ public class StateCensusAnalyzerTest {
 		CSVStateCensus[] censusData = new Gson().fromJson(sortedData, CSVStateCensus[].class);
 		assertEquals("Sikkim", censusData[28].getState());
 	}
+
+	//Sort By Population
+	@Test
+	public void givenCensusData_WhenSorted_GivesFirstStateBihar() throws CSVBuilderException{
+		analyser.readCSVData(CENSUS_CSV_PATH,CSVStateCensus.class);
+		String sortedData=analyser.makeCensusDataSorted();
+		CSVStateCensus[] censusData = new Gson().fromJson(sortedData, CSVStateCensus[].class);
+		assertEquals("Bihar", censusData[0].getState());
+	}
+
+	@Test
+	public void givenCensusData_WhenSorted_GivesLastArunachalPradesh() throws CSVBuilderException{
+		analyser.readCSVData(CENSUS_CSV_PATH,CSVStateCensus.class);
+		String sortedData=analyser.makeCensusDataSorted();
+		CSVStateCensus[] censusData = new Gson().fromJson(sortedData, CSVStateCensus[].class);
+		assertEquals("Arunachal Pradesh", censusData[28].getState());
+	}
 }
