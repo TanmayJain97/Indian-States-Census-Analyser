@@ -20,4 +20,20 @@ public class CSVStates {
 		return "IndiaStateCensus [ SrNo = " + srNo + " , State Name = " + state +
 				" , TIN = " + tin + " , StateCode = " + code + " ]";
 	}
+
+	public String getSrNo() {
+		return srNo;
+	}
+
+	public long getState() {
+		return state;
+	}
+
+	public int getTin() {
+		return tin;
+	}
+
+	public int getCode() {
+		return code;
+	}
 }

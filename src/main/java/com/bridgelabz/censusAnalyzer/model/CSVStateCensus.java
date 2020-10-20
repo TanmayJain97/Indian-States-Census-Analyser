@@ -21,4 +21,20 @@ public class CSVStateCensus {
 		return "IndiaStateCensus [ State = " + state + " , Population = " + pop +
 				" , AreaInSqKm = " + area + " , density = " + density + " ]";
 	}
+
+	public String getState() {
+		return state;
+	}
+
+	public long getPop() {
+		return pop;
+	}
+
+	public int getArea() {
+		return area;
+	}
+
+	public int getDensity() {
+		return density;
+	}
 }
