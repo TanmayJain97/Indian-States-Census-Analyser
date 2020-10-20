@@ -180,7 +180,7 @@ public class StateCensusAnalyzerTest {
 		assertEquals("Sikkim", censusData[28].getState());
 	}
 
-	//Sort By Population
+	//Sort By PopulationDensity
 	@Test
 	public void givenCensusData_WhenSorted_GivesFirstStateBihar() throws CSVBuilderException{
 		analyser.readCSVData(CENSUS_CSV_PATH,CSVStateCensus.class);
@@ -195,5 +195,22 @@ public class StateCensusAnalyzerTest {
 		String sortedData=analyser.makeCensusDataSorted();
 		CSVStateCensus[] censusData = new Gson().fromJson(sortedData, CSVStateCensus[].class);
 		assertEquals("Arunachal Pradesh", censusData[28].getState());
+	}
+
+	//Sort By Area
+	@Test
+	public void givenCensusData_WhenSorted_GivesFirstStateRajasthan() throws CSVBuilderException{
+		analyser.readCSVData(CENSUS_CSV_PATH,CSVStateCensus.class);
+		String sortedData=analyser.makeCensusDataSorted();
+		CSVStateCensus[] censusData = new Gson().fromJson(sortedData, CSVStateCensus[].class);
+		assertEquals("Rajasthan", censusData[0].getState());
+	}
+
+	@Test
+	public void givenCensusData_WhenSorted_GivesLastGoa() throws CSVBuilderException{
+		analyser.readCSVData(CENSUS_CSV_PATH,CSVStateCensus.class);
+		String sortedData=analyser.makeCensusDataSorted();
+		CSVStateCensus[] censusData = new Gson().fromJson(sortedData, CSVStateCensus[].class);
+		assertEquals("Goa", censusData[28].getState());
 	}
 }
