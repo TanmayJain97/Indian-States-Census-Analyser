@@ -58,13 +58,19 @@ public class StateCensusAnalyzer {
 	public String makeCensusDataSorted() throws CSVBuilderException {
 		if(censusList==null||censusList.size()==0)
 			throw new CSVBuilderException("No Census Data", ExceptionType.NO_DATA);
-		String sortedCensusDataJson = new Gson().toJson(sortByState());
+		String sortedCensusDataJson = new Gson().toJson(sortByPop());
 		return sortedCensusDataJson;
 	}
 	
 	private List<CSVStateCensus> sortByState() {
 		return censusList.stream()
 		.sorted(Comparator.comparing(CSVStateCensus::getState))
+		.collect(Collectors.toList());
+	}
+	
+	private List<CSVStateCensus> sortByPop() {
+		return censusList.stream()
+		.sorted(Comparator.comparingLong(CSVStateCensus::getPop).reversed())
 		.collect(Collectors.toList());
 	}
 
