@@ -1,6 +1,6 @@
-package com.bridgelabz.censusAnalyzer.exception;
+package com.bridgelabz.censusAnalyzer.csvbuilder.exception;
 
-public class StateAnalyzerException extends Exception {
+public class CSVBuilderException extends Exception {
 	
 	/**
 	 * 
@@ -12,7 +12,7 @@ public class StateAnalyzerException extends Exception {
 	
 	public ExceptionType type;
 	
-	public StateAnalyzerException(String message,ExceptionType type) {
+	public CSVBuilderException(String message,ExceptionType type) {
 		super(message);
 		this.type = type;
 	}

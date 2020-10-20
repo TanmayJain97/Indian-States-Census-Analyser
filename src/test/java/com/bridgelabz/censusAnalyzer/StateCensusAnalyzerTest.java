@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.bridgelabz.censusAnalyzer.exception.StateAnalyzerException;
+import com.bridgelabz.censusAnalyzer.csvbuilder.exception.CSVBuilderException;
 import com.bridgelabz.censusAnalyzer.model.CSVStateCensus;
 import com.bridgelabz.censusAnalyzer.model.CSVStates;
 import com.bridgelabz.censusAnalyzer.model.Invalid;
@@ -33,7 +33,7 @@ public class StateCensusAnalyzerTest {
 	//Test Cases For State Census
 	
 	@Test
-	public void givenCensusCSVFileReturnsCorrectNoOfEntries() throws StateAnalyzerException {
+	public void givenCensusCSVFileReturnsCorrectNoOfEntries() throws CSVBuilderException {
 		int stateCount = analyser.readCSVData(CENSUS_CSV_PATH,CSVStateCensus.class);
 		assertEquals(29, stateCount);
 	}
@@ -42,9 +42,9 @@ public class StateCensusAnalyzerTest {
 	public void givenIncorrectCSVFilePath_ThrowsCustomExceptionInvalidFilePath(){
 		try {
 			analyser.readCSVData(INVALID_CENSUS_CSV_PATH,CSVStateCensus.class);
-		} catch (StateAnalyzerException e) {
+		} catch (CSVBuilderException e) {
 			e.printStackTrace();
-			assertEquals(StateAnalyzerException.ExceptionType.INVALID_FILE_PATH, e.type);
+			assertEquals(CSVBuilderException.ExceptionType.INVALID_FILE_PATH, e.type);
 		}
 	}
 	
@@ -52,9 +52,9 @@ public class StateCensusAnalyzerTest {
 	public void givenIncorrectClass_ThrowsCustomExceptionInvalidClassType(){
 		try {
 			analyser.readCSVData(CENSUS_CSV_PATH,Invalid.class);
-		} catch (StateAnalyzerException e) {
+		} catch (CSVBuilderException e) {
 			e.printStackTrace();
-			assertEquals(StateAnalyzerException.ExceptionType.INVALID_CLASS_TYPE, e.type);
+			assertEquals(CSVBuilderException.ExceptionType.INVALID_CLASS_TYPE, e.type);
 		}
 	}
 	
@@ -62,9 +62,9 @@ public class StateCensusAnalyzerTest {
 	public void givenIncorrectDelimiter_ThrowsCustomExceptionInvalidDelimiter(){
 		try {
 			analyser.readCSVData(INVALID_CENSUS_CSV_DELIM,CSVStateCensus.class);
-		} catch (StateAnalyzerException e) {
+		} catch (CSVBuilderException e) {
 			e.printStackTrace();
-			assertEquals(StateAnalyzerException.ExceptionType.INVALID_DELIM_OR_HEAD, e.type);
+			assertEquals(CSVBuilderException.ExceptionType.INVALID_DELIM_OR_HEAD, e.type);
 		}
 	}
 	
@@ -72,16 +72,16 @@ public class StateCensusAnalyzerTest {
 	public void givenIncorrectHeader_ThrowsCustomExceptionInvalidHeader(){
 		try {
 			analyser.readCSVData(INVALID_CENSUS_CSV_HEAD,CSVStateCensus.class);
-		} catch (StateAnalyzerException e) {
+		} catch (CSVBuilderException e) {
 			e.printStackTrace();
-			assertEquals(StateAnalyzerException.ExceptionType.INVALID_DELIM_OR_HEAD, e.type);
+			assertEquals(CSVBuilderException.ExceptionType.INVALID_DELIM_OR_HEAD, e.type);
 		}
 	}
 	
 	//Test Cases For State Code
 	
 	@Test
-	public void givenCodeCSVFileReturnsCorrectNoOfEntries() throws StateAnalyzerException{
+	public void givenCodeCSVFileReturnsCorrectNoOfEntries() throws CSVBuilderException{
 		int stateCount = analyser.readCSVData(STATECODE_CSV_PATH,CSVStates.class);
 		assertEquals(36, stateCount);
 	}
@@ -90,9 +90,9 @@ public class StateCensusAnalyzerTest {
 	public void givenIncorrectClass_ThrowsCustomExceptionInvalidClassType2(){
 		try {
 			analyser.readCSVData(STATECODE_CSV_PATH,Invalid.class);
-		} catch (StateAnalyzerException e) {
+		} catch (CSVBuilderException e) {
 			e.printStackTrace();
-			assertEquals(StateAnalyzerException.ExceptionType.INVALID_CLASS_TYPE, e.type);
+			assertEquals(CSVBuilderException.ExceptionType.INVALID_CLASS_TYPE, e.type);
 		}
 	}
 	
@@ -100,9 +100,9 @@ public class StateCensusAnalyzerTest {
 	public void givenIncorrectCSVFilePath_ThrowsCustomExceptionInvalidFilePath2(){
 		try {
 			analyser.readCSVData(INVALID_STATECODE_CSV_PATH,CSVStates.class);
-		} catch (StateAnalyzerException e) {
+		} catch (CSVBuilderException e) {
 			e.printStackTrace();
-			assertEquals(StateAnalyzerException.ExceptionType.INVALID_FILE_PATH, e.type);
+			assertEquals(CSVBuilderException.ExceptionType.INVALID_FILE_PATH, e.type);
 		}
 	}
 	
@@ -110,9 +110,9 @@ public class StateCensusAnalyzerTest {
 	public void givenIncorrectDelimiter_ThrowsCustomExceptionInvalidDelimiter2(){
 		try {
 			analyser.readCSVData(INVALID_STATECODE_CSV_DELIM,CSVStates.class);
-		} catch (StateAnalyzerException e) {
+		} catch (CSVBuilderException e) {
 			e.printStackTrace();
-			assertEquals(StateAnalyzerException.ExceptionType.INVALID_DELIM_OR_HEAD, e.type);
+			assertEquals(CSVBuilderException.ExceptionType.INVALID_DELIM_OR_HEAD, e.type);
 		}
 	}
 	
@@ -120,9 +120,9 @@ public class StateCensusAnalyzerTest {
 	public void givenIncorrectHeader_ThrowsCustomExceptionInvalidHeader2(){
 		try {
 			analyser.readCSVData(INVALID_STATECODE_CSV_HEAD,CSVStates.class);
-		} catch (StateAnalyzerException e) {
+		} catch (CSVBuilderException e) {
 			e.printStackTrace();
-			assertEquals(StateAnalyzerException.ExceptionType.INVALID_DELIM_OR_HEAD, e.type);
+			assertEquals(CSVBuilderException.ExceptionType.INVALID_DELIM_OR_HEAD, e.type);
 		}
 	}
 }

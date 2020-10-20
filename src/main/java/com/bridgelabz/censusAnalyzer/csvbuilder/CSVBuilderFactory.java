@@ -1,4 +1,4 @@
-package com.bridgelabz.censusAnalyzer.utility;
+package com.bridgelabz.censusAnalyzer.csvbuilder;
 
 public class CSVBuilderFactory {
 

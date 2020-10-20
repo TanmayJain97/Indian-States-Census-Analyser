@@ -1,17 +1,17 @@
-package com.bridgelabz.censusAnalyzer.utility;
+package com.bridgelabz.censusAnalyzer.csvbuilder;
 
 import java.io.Reader;
 import java.util.Iterator;
 import java.util.stream.StreamSupport;
 
-import com.bridgelabz.censusAnalyzer.exception.StateAnalyzerException;
-import com.bridgelabz.censusAnalyzer.exception.StateAnalyzerException.ExceptionType;
+import com.bridgelabz.censusAnalyzer.csvbuilder.exception.CSVBuilderException;
+import com.bridgelabz.censusAnalyzer.csvbuilder.exception.CSVBuilderException.ExceptionType;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 public class CSVBuilder<T> implements ICSVBuilder<T> {
 	
-	public int getCount(Reader reader,Class className) throws StateAnalyzerException {
+	public int getCount(Reader reader,Class className) throws CSVBuilderException {
 		Iterator<T> csvIterator=this.getCSVIterator(reader, className);
 		Iterable<T> csvItrable= () -> csvIterator;
 		int count=(int) StreamSupport.stream(csvItrable.spliterator(),false)
@@ -19,7 +19,7 @@ public class CSVBuilder<T> implements ICSVBuilder<T> {
 		return count;
 	}
 	
-	private Iterator<T> getCSVIterator(Reader reader,Class<T> className) throws StateAnalyzerException {
+	private Iterator<T> getCSVIterator(Reader reader,Class<T> className) throws CSVBuilderException {
 		try {
 			CsvToBean<T> csvToBean =
 					new CsvToBeanBuilder<T>(reader)
@@ -29,7 +29,7 @@ public class CSVBuilder<T> implements ICSVBuilder<T> {
 			
 			return csvToBean.iterator();
 		}catch(IllegalStateException exception){
-			throw new StateAnalyzerException("Invalid Class Type.",
+			throw new CSVBuilderException("Invalid Class Type.",
 					ExceptionType.INVALID_CLASS_TYPE);
 		}
 	}
