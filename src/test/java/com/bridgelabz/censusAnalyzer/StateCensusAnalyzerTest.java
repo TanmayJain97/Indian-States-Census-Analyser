@@ -8,6 +8,7 @@ import com.bridgelabz.censusAnalyzer.csvbuilder.exception.CSVBuilderException;
 import com.bridgelabz.censusAnalyzer.model.CSVStateCensus;
 import com.bridgelabz.censusAnalyzer.model.CSVStates;
 import com.bridgelabz.censusAnalyzer.model.Invalid;
+import com.google.gson.Gson;
 
 public class StateCensusAnalyzerTest {
 	
@@ -124,5 +125,16 @@ public class StateCensusAnalyzerTest {
 			e.printStackTrace();
 			assertEquals(CSVBuilderException.ExceptionType.INVALID_DELIM_OR_HEAD, e.type);
 		}
+	}
+	
+	//Test for create JSON file in sorted Format
+	
+	//Sort By State
+	@Test
+	public void givenCensusData_WhenSorted_GivesFirstStateAndhraPradesh() throws CSVBuilderException{
+		analyser.readCSVData(CENSUS_CSV_PATH,CSVStateCensus.class);
+		String sortedData=analyser.makeCensusDataSorted();
+		CSVStateCensus[] censusData = new Gson().fromJson(sortedData, CSVStateCensus[].class);
+		assertEquals("Andhra Pradesh", censusData[0].getState());
 	}
 }
